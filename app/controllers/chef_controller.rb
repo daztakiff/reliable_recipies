@@ -9,7 +9,6 @@ class ChefController < ApplicationController
 
   def new
     @chef = Chef.new
-    @roles = Chef::ROLES
   end
 
   def create
@@ -18,14 +17,12 @@ class ChefController < ApplicationController
       if @chef.save
         redirect_to action: "list"
       else
-          @roles = Chef::ROLES
           render action: "new"
       end
   end
 
   def edit
     @chef = Chef.find(params[:id])
-    @roles = Chef::ROLES
   end
 
   def update
@@ -34,7 +31,6 @@ class ChefController < ApplicationController
    if @chef.update_attributes(chef_params)
       redirect_to action: "show", id: @book
    else
-      @roles = Chef::ROLES
       render action: "edit"
    end
   end
@@ -46,6 +42,6 @@ class ChefController < ApplicationController
 
 
   def chef_params
-    params.require(:chefs).permit(:username, :role)
+    params.require(:chefs).permit(:username)
   end
 end
